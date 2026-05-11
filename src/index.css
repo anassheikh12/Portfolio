@@ -1,0 +1,132 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== GLOBAL RETRO RESETS ===== */
+* {
+  image-rendering: pixelated;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Press Start 2P', monospace;
+  background-color: #5C94FC;
+  overflow-x: hidden;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: unset;
+}
+
+/* Pixel scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #5C94FC;
+  border-left: 4px solid #000;
+}
+::-webkit-scrollbar-thumb {
+  background: #865126;
+  border: 3px solid #000;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00A800;
+}
+
+/* ===== PIXEL ART UTILITIES ===== */
+@layer utilities {
+  .pixel-border {
+    @apply border-4 border-black;
+  }
+  .pixel-border-thick {
+    @apply border-[6px] border-black;
+  }
+  .pixel-text-shadow {
+    text-shadow: 2px 2px 0px #000, -1px -1px 0px #000, 1px -1px 0px #000, -1px 1px 0px #000;
+  }
+  .pixel-text-outline {
+    text-shadow:
+      -2px -2px 0 #000,
+       2px -2px 0 #000,
+      -2px  2px 0 #000,
+       2px  2px 0 #000,
+       0   -2px 0 #000,
+       0    2px 0 #000,
+      -2px  0   0 #000,
+       2px  0   0 #000;
+  }
+}
+
+/* ===== GROUND STRIP ===== */
+.ground-strip {
+  background: repeating-linear-gradient(
+    90deg,
+    #00A800 0px,
+    #00A800 24px,
+    #005C00 24px,
+    #005C00 48px
+  );
+  border-top: 6px solid #000;
+}
+
+.ground-dirt {
+  background: repeating-linear-gradient(
+    180deg,
+    #865126 0px,
+    #865126 12px,
+    #6B3F1E 12px,
+    #6B3F1E 24px
+  );
+}
+
+/* ===== CLOUD PIXEL SHAPES ===== */
+.cloud-block {
+  background: #fff;
+  border: 3px solid rgba(0,0,0,0.08);
+  border-radius: 4px;
+}
+
+/* ===== BRICK PATTERN ===== */
+.brick-pattern {
+  background-color: #865126;
+  background-image:
+    linear-gradient(to right, #000 2px, transparent 2px),
+    linear-gradient(to bottom, #000 2px, transparent 2px);
+  background-size: 32px 16px;
+  background-position: 0 0, 16px 8px;
+}
+
+/* ===== QUESTION BLOCK ANIMATION ===== */
+@keyframes questionPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+.question-block {
+  animation: questionPulse 1.5s ease-in-out infinite;
+}
+
+/* ===== WARP PIPE CSS ===== */
+.pipe-body {
+  background: linear-gradient(90deg, #005C00 0%, #00A800 30%, #00D000 50%, #00A800 70%, #005C00 100%);
+}
+.pipe-lip {
+  background: linear-gradient(90deg, #005C00 0%, #00A800 30%, #00D000 50%, #00A800 70%, #005C00 100%);
+}
+
+/* ===== SCANLINE OVERLAY ===== */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 50;
+}
