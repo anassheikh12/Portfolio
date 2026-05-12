@@ -165,44 +165,36 @@ export default function WarpPipeProjects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
   return (
-    <section id="projects" className="min-h-screen flex flex-col justify-end px-4 relative scroll-mt-24">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-20">
-        <div className="inline-flex items-center gap-3 bg-retro-dirt pixel-border shadow-pixel px-6 py-3">
-          <span className="text-retro-gold text-lg">🏗️</span>
-          <h2 className="text-white text-xs sm:text-sm pixel-text-outline">WARP PIPE SELECT</h2>
-        </div>
-      </motion.div>
+    <section id="projects" className="min-h-screen flex flex-col justify-end relative scroll-mt-24 overflow-hidden">
+      <div className="pb-0 w-full overflow-x-auto hide-scrollbar scroll-smooth">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16 px-4">
+          <div className="inline-flex items-center gap-3 bg-retro-dirt pixel-border shadow-pixel px-6 py-3">
+            <span className="text-retro-gold text-lg">🏗️</span>
+            <h2 className="text-white text-xs sm:text-sm pixel-text-outline">WARP PIPE SELECT</h2>
+          </div>
+        </motion.div>
 
-      {/* Pipes row */}
-      <div className="max-w-5xl w-full mx-auto relative z-20">
-        {/* Sleeping Goku sitting on the platform */}
-        <div className="absolute -left-20 sm:-left-40 -bottom-4 z-30 pointer-events-none">
-          <img 
-            src="/goku.png" 
-            alt="Sleeping Goku" 
-            className="w-24 sm:w-40 h-auto pixelated mix-blend-multiply"
-          />
-        </div>
-
-        {/* Naruto sitting on the platform */}
-        <div className="absolute -right-12 sm:-right-28 -bottom-6 z-30 pointer-events-none">
-          <img 
-            src="/narotu.png" 
-            alt="Naruto" 
-            className="w-20 sm:w-32 h-auto pixelated mix-blend-multiply"
-          />
-        </div>
-        
-        <div className="flex items-end justify-center gap-6 sm:gap-14 mb-0">
-          {projectsData.map((project) => (
-            <WarpPipe key={project.id} project={project} onClick={() => setSelectedProject(project)} />
-          ))}
+        {/* Pipes row - Horizontal Scroll on Mobile */}
+        <div className="relative z-20 pb-12">
+          {/* Static Characters (Desktop only) */}
+          <div className="absolute left-8 bottom-4 z-30 pointer-events-none hidden lg:block">
+            <img src="/goku.png" alt="Goku" className="w-32 h-auto pixelated mix-blend-multiply" />
+          </div>
+          <div className="absolute right-8 bottom-4 z-30 pointer-events-none hidden lg:block">
+            <img src="/narotu.png" alt="Naruto" className="w-24 h-auto pixelated mix-blend-multiply" />
+          </div>
+          
+          <div className="flex items-end justify-start md:justify-center gap-10 sm:gap-16 px-12 md:px-0 min-w-max mx-auto">
+            {projectsData.map((project) => (
+              <WarpPipe key={project.id} project={project} onClick={() => setSelectedProject(project)} />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Ground - Adjusted to accommodate labels inside dirt */}
-      <div className="ground-strip h-8 pixel-border border-l-0 border-r-0 border-b-0 relative z-10" />
-      <div className="ground-dirt h-24 pixel-border border-l-0 border-r-0 border-b-0 border-t-0 relative z-10" />
+      {/* Ground - Now Full Width */}
+      <div className="ground-strip h-8 pixel-border border-l-0 border-r-0 border-b-0 relative z-10 w-full" />
+      <div className="ground-dirt h-24 pixel-border border-l-0 border-r-0 border-b-0 border-t-0 relative z-10 w-full" />
 
       {/* Modal */}
       <AnimatePresence>
