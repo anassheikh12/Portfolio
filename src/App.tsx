@@ -13,22 +13,19 @@ import CustomCursor from './components/CustomCursor';
 
 function ArcadeLayout() {
   return (
-    <div className="relative">
+    <div className="relative min-h-screen flex flex-col">
       {/* Main Content Windows */}
-      <div className="relative z-10">
+      <div className="relative z-10 flex-1">
         <CharacterSelect />
         <SkillsInventory />
         <WarpPipeProjects />
         <ContactForm />
-        
-        {/* Spacer for footer so content isn't covered */}
-        <div className="h-64" />
       </div>
 
-      {/* Fixed Interactive Footer Roster (The Crowd) */}
-      <footer className="fixed bottom-0 left-0 w-full z-0 pointer-events-none">
-        {/* Grand Crossover Roster */}
-        <div className="absolute bottom-full left-0 w-full overflow-visible flex justify-center pb-2">
+      {/* Footer Roster - Positioned at the bottom of the scroll */}
+      <footer className="relative mt-20 z-10">
+        {/* Grand Crossover Roster - Layered behind content if needed, but here it's at the end */}
+        <div className="absolute bottom-full left-0 w-full pointer-events-none z-0 overflow-visible flex justify-center pb-2">
           <img 
             src="/footer-crowd.png" 
             alt="Retro Crowd" 
@@ -36,8 +33,8 @@ function ArcadeLayout() {
           />
         </div>
         
-        <div className="ground-strip h-10 w-full" />
-        <div className="ground-dirt h-24 w-full flex items-center justify-center">
+        <div className="ground-strip h-10 w-full relative z-10" />
+        <div className="ground-dirt h-24 w-full flex items-center justify-center relative z-10">
           <span className="text-white/60 text-[10px] font-pixel tracking-widest uppercase">
             © 2026 ANAS SHEIKH — WORLD 1-1 COMPLETE
           </span>
