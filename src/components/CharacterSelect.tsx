@@ -70,8 +70,8 @@ export default function CharacterSelect() {
           viewport={{ once: true }}
           className="text-center mb-10"
         >
-          <div className="inline-flex items-center gap-4 bg-retro-dirt pixel-border shadow-pixel px-8 py-4">
-            <span className="text-retro-gold text-2xl">👤</span>
+          <div className="inline-flex items-center gap-4 bg-retro-grass pixel-border shadow-pixel-green px-8 py-4">
+            <span className="text-white text-2xl">👤</span>
             <h2 className="text-white text-sm md:text-base pixel-text-outline uppercase">CHARACTER SELECT</h2>
           </div>
         </motion.div>
@@ -85,9 +85,12 @@ export default function CharacterSelect() {
             transition={{ delay: 0.2 }}
             className="lg:col-span-4 relative z-20"
           >
-            <div className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-6 relative">
+            <div className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-6 relative overflow-hidden">
+              {/* Decorative Grass in corner */}
+              <div className="absolute top-0 right-0 p-2 opacity-20">🍃</div>
+              
               {/* Character select frame */}
-              <div className="bg-retro-sky/30 pixel-border p-2 mb-4 relative">
+              <div className="bg-retro-grass/10 pixel-border p-2 mb-4 relative">
                 <motion.div
                   animate={{ y: [0, -4, 0] }}
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
@@ -107,7 +110,7 @@ export default function CharacterSelect() {
               </div>
 
               {/* Name plate */}
-              <div className="bg-retro-dirt pixel-border p-4 mb-6 text-center">
+              <div className="bg-retro-grass/20 pixel-border-green p-4 mb-6 text-center">
                 <h3 className="text-retro-gold text-xs md:text-sm pixel-text-outline mb-2 uppercase">{bioData.name}</h3>
                 <p className="text-white/60 text-[9px] uppercase tracking-wide">{bioData.title}</p>
               </div>

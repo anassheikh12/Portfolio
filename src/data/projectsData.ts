@@ -17,6 +17,7 @@ export interface Project {
   tech: string[];
   repoUrl: string;
   liveUrl?: string;
+  videoAsset?: string;
   color: string;
   pipeHeight: number;
 }
@@ -34,9 +35,9 @@ export const bioData = {
     guild: "FAST-NUCES",
   },
   socials: {
-    github: "https://github.com/AnasShk",
-    linkedin: "https://linkedin.com/in/anas-shk",
-    email: "anas@example.com",
+    github: "https://github.com/anassheikh12",
+    linkedin: "https://www.linkedin.com/in/anas-sheikh-2a24a62b5/",
+    email: "sheilhanas9@gmail.com",
   },
 };
 
@@ -49,7 +50,7 @@ export const skillsData: Skill[] = [
     maxLevel: 10,
     category: "Languages",
     description: "Systems-level programming, SFML game engines, OOP architecture, memory management, and data structures. Built complete RPG systems with sprite animation engines.",
-    projects: ["SFML RPG Engine", "Data Structures Lab"],
+    projects: ["Axe & Arrows", "Data Structures Lab"],
   },
   {
     id: "react",
@@ -59,7 +60,7 @@ export const skillsData: Skill[] = [
     maxLevel: 10,
     category: "Frontend",
     description: "React 18 with TypeScript, Next.js, state management with Context API and Zustand, real-time UIs with WebSocket integration and TLDraw collaborative canvases.",
-    projects: ["LIGMA Hub", "This Portfolio"],
+    projects: ["Ligma", "This Portfolio"],
   },
   {
     id: "node",
@@ -69,7 +70,7 @@ export const skillsData: Skill[] = [
     maxLevel: 10,
     category: "Backend",
     description: "Express/Fastify APIs, WebSocket servers, real-time collaboration backends, authentication flows, and serverless deployments on Vercel.",
-    projects: ["LIGMA Hub Backend", "Chat Engine"],
+    projects: ["Ligma Backend", "Chat Engine"],
   },
   {
     id: "python",
@@ -89,7 +90,7 @@ export const skillsData: Skill[] = [
     maxLevel: 10,
     category: "Styling",
     description: "Utility-first CSS framework expertise. Building responsive, pixel-perfect UIs with custom design systems, animations, and complex layouts.",
-    projects: ["This Portfolio", "LIGMA Hub"],
+    projects: ["This Portfolio", "Ligma"],
   },
   {
     id: "git",
@@ -109,7 +110,7 @@ export const skillsData: Skill[] = [
     maxLevel: 10,
     category: "Networking",
     description: "Real-time bidirectional communication with Socket.io and Yjs CRDT protocols. Built collaborative drawing canvases and live chat systems.",
-    projects: ["LIGMA Hub", "Chat Engine"],
+    projects: ["Ligma", "Chat Engine"],
   },
   {
     id: "databases",
@@ -119,48 +120,55 @@ export const skillsData: Skill[] = [
     maxLevel: 10,
     category: "Backend",
     description: "PostgreSQL, MongoDB, Firebase Realtime DB and Firestore. Schema design, query optimization, and real-time data synchronization patterns.",
-    projects: ["LIGMA Hub", "Auth Systems"],
+    projects: ["Ligma", "Auth Systems"],
   },
 ];
 
 export const projectsData: Project[] = [
   {
-    id: "rpg-engine",
-    title: "SFML RPG Engine",
-    subtitle: "C++ Game Engine",
-    description: "A complete 2D RPG engine built from scratch in C++ with SFML. Features state-based sprite animation, wave-based enemy AI, loot drop systems, collision detection, and a cinematic splash screen sequence. Full OOP architecture with 15+ classes.",
-    tech: ["C++", "SFML", "OOP", "Game Dev"],
-    repoUrl: "https://github.com/AnasShk/sfml-rpg",
-    color: "#E44040",
-    pipeHeight: 160,
-  },
-  {
-    id: "ligma-hub",
-    title: "LIGMA Hub",
-    subtitle: "Collaborative Platform",
-    description: "A Discord-inspired real-time collaboration platform with AI-powered idea generation. Features TLDraw canvas integration, role-based access control, Yjs CRDT synchronization, Neo-Brutalist UI, and Gemini AI content generation pipeline.",
-    tech: ["React", "Next.js", "WebSockets", "Yjs", "AI"],
-    repoUrl: "https://github.com/AnasShk/ligma-hub",
+    id: "ligma",
+    title: "Ligma",
+    subtitle: "Collaborative SaaS",
+    description: "Real-time collaborative SaaS whiteboard platform.",
+    tech: ["React", "Next.js", "WebSockets", "Node.js"],
+    repoUrl: "https://github.com/anassheikh12/LIGMA_DevDay",
+    liveUrl: "https://ligma-afso.onrender.com/",
+    videoAsset: "Ligma_demo.mp4",
     color: "#5C94FC",
     pipeHeight: 200,
   },
   {
-    id: "portfolio",
-    title: "This Portfolio",
-    subtitle: "Retro Arcade Site",
-    description: "The very site you're looking at! A 16-bit retro arcade cabinet portfolio built with React, TypeScript, Tailwind CSS, and Framer Motion. Features dual Arcade/Dashboard modes, parallax cloud physics, and pure CSS pixel art.",
-    tech: ["React", "TypeScript", "Tailwind", "Framer Motion"],
-    repoUrl: "https://github.com/AnasShk/portfolio",
+    id: "flappy-bird",
+    title: "Flappy Bird",
+    subtitle: "Retro Arcade",
+    description: "Classic retro arcade recreation playable right in the browser.",
+    tech: ["JavaScript", "HTML5 Canvas", "Game Dev"],
+    repoUrl: "https://github.com/anassheikh12/FlappyBird",
+    liveUrl: "https://anassheikh12.github.io/FlappyBird/",
+    videoAsset: "Flappy-bird.mp4",
     color: "#00A800",
     pipeHeight: 140,
   },
   {
-    id: "chat-engine",
-    title: "Real-Time Chat",
-    subtitle: "WebSocket Engine",
-    description: "A production-grade real-time chat engine with Discord-inspired UI. Built with WebSocket bidirectional communication, message persistence, user presence tracking, and a Neo-Brutalist design system.",
-    tech: ["Node.js", "Socket.io", "React", "MongoDB"],
-    repoUrl: "https://github.com/AnasShk/chat-engine",
+    id: "axe-arrows",
+    title: "Axe & Arrows",
+    subtitle: "Shadow of the Rogue",
+    description: "2D action game featuring custom barbarian/dragon movement and wave logic loops built using C++ and SFML.",
+    tech: ["C++", "SFML", "Game Engines"],
+    repoUrl: "https://github.com/anassheikh12/Axe-Arrow",
+    videoAsset: "Axe-Arrow_C++Game.mp4",
+    color: "#E44040",
+    pipeHeight: 160,
+  },
+  {
+    id: "psl-nexus",
+    title: "PSL Nexus",
+    subtitle: "Web3 Cricket Metaverse",
+    description: "Web3 3D cricket metaverse platform.",
+    tech: ["Three.js", "Web3", "React", "Metaverse"],
+    repoUrl: "https://github.com/anassheikh12/PSL-Nexus",
+    liveUrl: "https://psl-nexus-jet.vercel.app/",
+    videoAsset: "PSL_Nexus.mp4",
     color: "#FFD700",
     pipeHeight: 180,
   },

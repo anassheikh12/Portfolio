@@ -37,6 +37,25 @@ function PixelCloud({ width, height }: { width: number; height: number }) {
 export default function CloudBackground() {
   return (
     <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+      {/* Ender Dragon Loop - Glides diagonally every 45s */}
+      <motion.img
+        src="/Ender-Dragon.gif"
+        alt="Ender Dragon"
+        initial={{ x: '110vw', y: '15vh', opacity: 0 }}
+        animate={{ 
+          x: '-20vw', 
+          y: '15vh', 
+          opacity: [0, 1, 1, 0] 
+        }}
+        transition={{ 
+          duration: 20, 
+          repeat: Infinity, 
+          repeatDelay: 25, 
+          ease: "linear" 
+        }}
+        className="fixed w-64 h-auto pointer-events-none mix-blend-multiply opacity-40"
+      />
+
       {clouds.map((cloud, i) => (
         <motion.div
           key={i}

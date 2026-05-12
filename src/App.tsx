@@ -9,6 +9,7 @@ import SkillsInventory from './components/SkillsInventory';
 import WarpPipeProjects from './components/WarpPipeProjects';
 import ContactForm from './components/ContactForm';
 import DashboardMode from './components/DashboardMode';
+import CustomCursor from './components/CustomCursor';
 
 function ArcadeLayout() {
   return (
@@ -19,9 +20,17 @@ function ArcadeLayout() {
       <ContactForm />
 
       {/* Footer ground */}
-      <footer className="relative mt-20">
-        <div className="ground-strip h-10" />
-        <div className="ground-dirt h-24 flex items-center justify-center">
+      <footer className="relative mt-40">
+        {/* Grand Crossover Roster */}
+        <div className="absolute bottom-full left-0 w-full pointer-events-none z-10 overflow-visible flex justify-center">
+          <img 
+            src="/footer-crowd.png" 
+            alt="Retro Crowd" 
+            className="w-[90%] max-w-[1400px] h-auto pixelated mix-blend-multiply"
+          />
+        </div>
+        <div className="ground-strip h-10 relative z-20" />
+        <div className="ground-dirt h-24 flex items-center justify-center relative z-20">
           <span className="text-white/60 text-[10px] font-pixel tracking-widest uppercase">
             © 2026 ANAS SHEIKH — WORLD 1-1 COMPLETE
           </span>
@@ -45,7 +54,8 @@ function AppContent() {
   // Handle landing state (no scroll allowed)
   if (viewMode === null) {
     return (
-      <div className="h-screen w-screen overflow-hidden bg-retro-sky relative scanlines">
+      <div className="h-screen w-screen overflow-hidden bg-retro-sky relative scanlines cursor-none">
+        <CustomCursor />
         <CloudBackground />
         <div className="relative z-10 flex items-center justify-center h-full">
           <ChoiceTerminal />
@@ -55,7 +65,8 @@ function AppContent() {
   }
 
   return (
-    <div className={`relative min-h-screen scanlines ${viewMode === 'arcade' ? 'bg-retro-sky' : 'bg-retro-dark'}`}>
+    <div className={`relative min-h-screen scanlines cursor-none ${viewMode === 'arcade' ? 'bg-retro-sky' : 'bg-retro-dark'}`}>
+      <CustomCursor />
       <CloudBackground />
       
       {/* Permanent HudNavbar when mode is active */}

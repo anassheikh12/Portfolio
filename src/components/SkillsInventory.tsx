@@ -12,7 +12,7 @@ function SkillSlot({ skill, isActive, onClick, onHover }: { skill: Skill; isActi
       className={`relative p-3 sm:p-4 pixel-border-thick text-center transition-all ${
         isActive
           ? 'bg-retro-grass shadow-pixel-green ring-2 ring-retro-gold'
-          : 'bg-retro-dirt/80 shadow-pixel hover:bg-retro-dirt'
+          : 'bg-retro-grass/10 shadow-pixel hover:bg-retro-grass/20'
       }`}
     >
       <div className="text-2xl sm:text-3xl mb-2">{skill.icon}</div>
@@ -45,7 +45,7 @@ function StatsPanel({ skill }: { skill: Skill }) {
       className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-5 sm:p-6 h-full"
     >
       <div className="flex items-center gap-3 mb-4">
-        <div className="w-12 h-12 bg-retro-dirt pixel-border flex items-center justify-center shadow-pixel-sm">
+        <div className="w-12 h-12 bg-retro-grass/20 pixel-border-green flex items-center justify-center shadow-pixel-sm">
           <span className="text-2xl">{skill.icon}</span>
         </div>
         <div>
@@ -93,16 +93,16 @@ export default function SkillsInventory() {
     <section id="skills" className="min-h-screen flex items-center justify-center px-4 py-24 scroll-mt-24">
       <div className="max-w-5xl w-full">
         <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10">
-          <div className="inline-flex items-center gap-3 bg-retro-dirt pixel-border shadow-pixel px-6 py-3">
-            <span className="text-retro-gold text-lg">⚔️</span>
+          <div className="inline-flex items-center gap-3 bg-retro-grass pixel-border shadow-pixel-green px-6 py-3">
+            <span className="text-white text-lg">⚔️</span>
             <h2 className="text-white text-xs sm:text-sm pixel-text-outline">SKILLS INVENTORY</h2>
           </div>
         </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-7">
             <div className="bg-retro-panel/60 pixel-border-thick shadow-pixel-lg p-4">
-              <div className="bg-retro-dirt pixel-border px-3 py-2 mb-4 flex items-center justify-between">
-                <span className="text-white text-[8px] pixel-text-outline">EQUIPMENT</span>
+              <div className="bg-retro-grass/20 pixel-border-green px-3 py-2 mb-4 flex items-center justify-between">
+                <span className="text-retro-grass text-[8px] pixel-text-outline">EQUIPMENT</span>
                 <span className="text-retro-gold text-[7px]">{skillsData.length} SLOTS</span>
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
