@@ -20,6 +20,10 @@ body {
   cursor: none !important;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 /* Force hide cursor on all interactive elements */
 a, button, [role="button"], .cursor-pointer {
   cursor: none !important;

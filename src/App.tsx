@@ -79,7 +79,7 @@ function AppContent() {
         <HudNavbar />
       </motion.div>
 
-      <div className="pt-20 relative z-10">
+      <div className="pt-24 md:pt-28 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={viewMode || 'landing'}
