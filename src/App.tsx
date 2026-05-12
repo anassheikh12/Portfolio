@@ -25,7 +25,7 @@ function ArcadeLayout() {
       {/* Footer Roster - Positioned at the bottom of the scroll */}
       <footer className="relative mt-20 z-10">
         {/* Grand Crossover Roster - Layered behind content if needed, but here it's at the end */}
-        <div className="absolute bottom-full left-0 w-full pointer-events-none z-0 overflow-visible flex justify-center pb-2">
+        <div className="absolute bottom-full left-0 w-full pointer-events-none z-0 overflow-visible flex justify-center -mb-1">
           <img 
             src="/footer-crowd.png" 
             alt="Retro Crowd" 
