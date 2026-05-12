@@ -17,16 +17,21 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
-  cursor: none !important;
 }
 
 html {
   overflow-x: hidden;
 }
 
-/* Force hide cursor on all interactive elements */
-a, button, [role="button"], .cursor-pointer {
-  cursor: none !important;
+@media (pointer: fine) {
+  body {
+    cursor: none !important;
+  }
+  
+  /* Force hide cursor on all interactive elements */
+  a, button, [role="button"], .cursor-pointer {
+    cursor: none !important;
+  }
 }
 
 /* Pixel scrollbar */

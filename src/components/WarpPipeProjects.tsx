@@ -167,24 +167,39 @@ export default function WarpPipeProjects() {
   return (
     <section id="projects" className="min-h-screen flex flex-col justify-end relative scroll-mt-24 overflow-hidden">
       <div className="pb-0 w-full overflow-x-auto hide-scrollbar scroll-smooth">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-16 px-4">
+        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 px-4">
           <div className="inline-flex items-center gap-3 bg-retro-dirt pixel-border shadow-pixel px-6 py-3">
             <span className="text-retro-gold text-lg">🏗️</span>
-            <h2 className="text-white text-xs sm:text-sm pixel-text-outline">WARP PIPE SELECT</h2>
+            <h2 className="text-white text-xs sm:text-sm pixel-text-outline uppercase">WARP PIPE SELECT</h2>
           </div>
+          
+          {/* Scroll Indicator - Mobile Only */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="md:hidden mt-6 flex justify-center"
+          >
+            <motion.span 
+              animate={{ x: [0, 10, 0] }}
+              transition={{ repeat: Infinity, duration: 1.5 }}
+              className="text-retro-gold text-[8px] pixel-text-outline"
+            >
+              SWIPE TO VIEW MORE ➔
+            </motion.span>
+          </motion.div>
         </motion.div>
 
         {/* Pipes row - Horizontal Scroll on Mobile */}
-        <div className="relative z-20 pb-12">
+        <div className="relative z-20 pb-16">
           {/* Static Characters (Desktop only) */}
-          <div className="absolute left-8 bottom-4 z-30 pointer-events-none hidden lg:block">
-            <img src="/goku.png" alt="Goku" className="w-32 h-auto pixelated mix-blend-multiply" />
+          <div className="absolute left-10 bottom-6 z-30 pointer-events-none hidden lg:block">
+            <img src="/goku.png" alt="Goku" className="w-32 h-auto pixelated mix-blend-multiply opacity-80" />
           </div>
-          <div className="absolute right-8 bottom-4 z-30 pointer-events-none hidden lg:block">
-            <img src="/narotu.png" alt="Naruto" className="w-24 h-auto pixelated mix-blend-multiply" />
+          <div className="absolute right-10 bottom-6 z-30 pointer-events-none hidden lg:block">
+            <img src="/narotu.png" alt="Naruto" className="w-24 h-auto pixelated mix-blend-multiply opacity-80" />
           </div>
           
-          <div className="flex items-end justify-start md:justify-center gap-10 sm:gap-16 px-12 md:px-0 min-w-max mx-auto">
+          <div className="flex items-end justify-start md:justify-center gap-16 sm:gap-32 px-12 md:px-0 min-w-max mx-auto">
             {projectsData.map((project) => (
               <WarpPipe key={project.id} project={project} onClick={() => setSelectedProject(project)} />
             ))}
