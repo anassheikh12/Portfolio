@@ -85,7 +85,7 @@ export default function CharacterSelect() {
             transition={{ delay: 0.2 }}
             className="lg:col-span-4 relative z-20"
           >
-            <div className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-6 relative overflow-hidden">
+            <div className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-6 relative overflow-hidden retro-window">
               {/* Decorative Grass in corner */}
               <div className="absolute top-0 right-0 p-2 opacity-20">🍃</div>
               
@@ -142,7 +142,7 @@ export default function CharacterSelect() {
             transition={{ delay: 0.4 }}
             className="lg:col-span-8 relative z-20"
           >
-            <div className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-8 relative h-full flex flex-col">
+            <div className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-8 relative h-full flex flex-col retro-window">
               {/* RPG dialogue header */}
               <div className="bg-retro-dirt pixel-border px-6 py-3 mb-6 inline-flex items-center gap-3 self-start">
                 <span className="text-retro-gold text-xs pixel-text-outline uppercase">{bioData.name}</span>

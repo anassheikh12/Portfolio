@@ -100,7 +100,7 @@ export default function SkillsInventory() {
         </motion.div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="lg:col-span-7">
-            <div className="bg-retro-panel/60 pixel-border-thick shadow-pixel-lg p-4">
+            <div className="bg-retro-panel/60 pixel-border-thick shadow-pixel-lg p-4 retro-window">
               <div className="bg-retro-grass/20 pixel-border-green px-3 py-2 mb-4 flex items-center justify-between">
                 <span className="text-retro-grass text-[8px] pixel-text-outline">EQUIPMENT</span>
                 <span className="text-retro-gold text-[7px]">{skillsData.length} SLOTS</span>

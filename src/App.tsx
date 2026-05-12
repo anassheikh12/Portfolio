@@ -13,24 +13,31 @@ import CustomCursor from './components/CustomCursor';
 
 function ArcadeLayout() {
   return (
-    <div className="relative z-10">
-      <CharacterSelect />
-      <SkillsInventory />
-      <WarpPipeProjects />
-      <ContactForm />
+    <div className="relative">
+      {/* Main Content Windows */}
+      <div className="relative z-10">
+        <CharacterSelect />
+        <SkillsInventory />
+        <WarpPipeProjects />
+        <ContactForm />
+        
+        {/* Spacer for footer so content isn't covered */}
+        <div className="h-64" />
+      </div>
 
-      {/* Footer ground */}
-      <footer className="relative mt-40">
+      {/* Fixed Interactive Footer Roster (The Crowd) */}
+      <footer className="fixed bottom-0 left-0 w-full z-0 pointer-events-none">
         {/* Grand Crossover Roster */}
-        <div className="absolute bottom-full left-0 w-full pointer-events-none z-10 overflow-visible flex justify-center">
+        <div className="absolute bottom-full left-0 w-full overflow-visible flex justify-center pb-2">
           <img 
             src="/footer-crowd.png" 
             alt="Retro Crowd" 
-            className="w-[90%] max-w-[1400px] h-auto pixelated mix-blend-multiply"
+            className="w-[95%] max-w-[1600px] h-auto object-contain pixelated mix-blend-multiply"
           />
         </div>
-        <div className="ground-strip h-10 relative z-20" />
-        <div className="ground-dirt h-24 flex items-center justify-center relative z-20">
+        
+        <div className="ground-strip h-10 w-full" />
+        <div className="ground-dirt h-24 w-full flex items-center justify-center">
           <span className="text-white/60 text-[10px] font-pixel tracking-widest uppercase">
             © 2026 ANAS SHEIKH — WORLD 1-1 COMPLETE
           </span>
@@ -79,7 +86,7 @@ function AppContent() {
         <HudNavbar />
       </motion.div>
 
-      <div className="pt-24 md:pt-28 relative z-10">
+      <div className="pt-20 relative z-10">
         <AnimatePresence mode="wait">
           <motion.div
             key={viewMode || 'landing'}

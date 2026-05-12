@@ -41,19 +41,19 @@ export default function CloudBackground() {
       <motion.img
         src="/Ender-Dragon.gif"
         alt="Ender Dragon"
-        initial={{ x: '110vw', y: '15vh', opacity: 0 }}
+        initial={{ x: '110vw', y: '10vh', opacity: 0 }}
         animate={{ 
           x: '-20vw', 
-          y: '15vh', 
+          y: '40vh', 
           opacity: [0, 1, 1, 0] 
         }}
         transition={{ 
-          duration: 20, 
+          duration: 15, 
           repeat: Infinity, 
-          repeatDelay: 25, 
+          repeatDelay: 30, 
           ease: "linear" 
         }}
-        className="fixed w-64 h-auto pointer-events-none mix-blend-multiply opacity-40"
+        className="fixed w-64 h-auto pointer-events-none mix-blend-multiply opacity-30"
       />
 
       {clouds.map((cloud, i) => (

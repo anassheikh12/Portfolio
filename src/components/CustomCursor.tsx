@@ -3,7 +3,6 @@ import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 export default function CustomCursor() {
   const [isHovered, setIsHovered] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
@@ -12,10 +11,6 @@ export default function CustomCursor() {
   const y = useSpring(cursorY, springConfig);
 
   useEffect(() => {
-    const touchCheck = window.matchMedia('(pointer: coarse)');
-    setIsTouch(touchCheck.matches);
-    if (touchCheck.matches) return;
-
     const moveCursor = (e: MouseEvent) => {
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
@@ -25,6 +20,8 @@ export default function CustomCursor() {
         const isInteractive = 
           target.tagName === 'BUTTON' || 
           target.tagName === 'A' || 
+          target.tagName === 'INPUT' || 
+          target.tagName === 'TEXTAREA' || 
           target.closest('button') || 
           target.closest('a') ||
           target.classList.contains('cursor-pointer') ||
@@ -34,10 +31,11 @@ export default function CustomCursor() {
     };
 
     window.addEventListener('mousemove', moveCursor);
-    return () => window.removeEventListener('mousemove', moveCursor);
-  }, [cursorX, cursorY]);
 
-  if (isTouch) return null;
+    return () => {
+      window.removeEventListener('mousemove', moveCursor);
+    };
+  }, [cursorX, cursorY]);
 
   return (
     <motion.div

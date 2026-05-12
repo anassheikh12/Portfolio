@@ -42,7 +42,7 @@ export default function ContactForm() {
               initial={{ scale: 0.5, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.5, opacity: 0 }}
-              className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-8 text-center"
+              className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-8 text-center retro-window"
             >
               <motion.div
                 animate={{ scale: [1, 1.2, 1], rotate: [0, 5, -5, 0] }}
@@ -86,7 +86,7 @@ export default function ContactForm() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               onSubmit={handleSubmit}
-              className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-6"
+              className="bg-retro-panel pixel-border-thick shadow-pixel-lg p-6 retro-window"
             >
               {/* Scoreboard header */}
               <div className="bg-retro-dirt pixel-border p-3 mb-6 flex items-center justify-between">

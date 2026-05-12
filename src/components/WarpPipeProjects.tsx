@@ -19,19 +19,23 @@ function WarpPipe({ project, onClick }: { project: Project; onClick: () => void 
         viewport={{ once: true }}
         transition={{ type: 'spring', stiffness: 100 }}
       >
-        {/* Mario Jump Animation */}
+        {/* Mario Jump Animation - 120px Arc */}
         <AnimatePresence>
           {isHovered && (
             <motion.img
               src="/mario-jump.png"
               alt="Mario"
-              initial={{ y: 20, opacity: 0 }}
+              initial={{ y: 40, opacity: 0 }}
               animate={{ 
-                y: [0, -220, 0],
+                y: [40, -120, 40],
                 opacity: [0, 1, 1, 0],
               }}
-              transition={{ duration: 1.2, times: [0, 0.4, 1], ease: "easeOut" }}
-              className="absolute bottom-28 w-24 h-auto z-0 mix-blend-multiply"
+              transition={{ 
+                duration: 0.8, 
+                times: [0, 0.4, 1], 
+                ease: "easeOut" 
+              }}
+              className="absolute bottom-24 w-20 h-auto z-0 mix-blend-multiply"
             />
           )}
         </AnimatePresence>
@@ -166,50 +170,34 @@ export default function WarpPipeProjects() {
 
   return (
     <section id="projects" className="min-h-screen flex flex-col justify-end relative scroll-mt-24 overflow-hidden">
-      <div className="pb-0 w-full overflow-x-auto hide-scrollbar scroll-smooth">
-        <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-10 px-4">
-          <div className="inline-flex items-center gap-3 bg-retro-dirt pixel-border shadow-pixel px-6 py-3">
-            <span className="text-retro-gold text-lg">🏗️</span>
-            <h2 className="text-white text-xs sm:text-sm pixel-text-outline uppercase">WARP PIPE SELECT</h2>
-          </div>
-          
-          {/* Scroll Indicator - Mobile Only */}
-          <motion.div 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="md:hidden mt-6 flex justify-center"
-          >
-            <motion.span 
-              animate={{ x: [0, 10, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-              className="text-retro-gold text-[8px] pixel-text-outline"
-            >
-              SWIPE TO VIEW MORE ➔
-            </motion.span>
-          </motion.div>
-        </motion.div>
+      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-20 px-4">
+        <div className="inline-flex items-center gap-3 bg-retro-dirt pixel-border shadow-pixel px-6 py-3">
+          <span className="text-retro-gold text-lg">🏗️</span>
+          <h2 className="text-white text-xs sm:text-sm pixel-text-outline uppercase">PROJECT SELECT</h2>
+        </div>
+      </motion.div>
 
-        {/* Pipes row - Horizontal Scroll on Mobile */}
-        <div className="relative z-20 pb-16">
-          {/* Static Characters (Desktop only) */}
-          <div className="absolute left-10 bottom-6 z-30 pointer-events-none hidden lg:block">
-            <img src="/goku.png" alt="Goku" className="w-32 h-auto pixelated mix-blend-multiply opacity-80" />
-          </div>
-          <div className="absolute right-10 bottom-6 z-30 pointer-events-none hidden lg:block">
-            <img src="/narotu.png" alt="Naruto" className="w-24 h-auto pixelated mix-blend-multiply opacity-80" />
-          </div>
-          
-          <div className="flex items-end justify-start md:justify-center gap-16 sm:gap-32 px-12 md:px-0 min-w-max mx-auto">
-            {projectsData.map((project) => (
-              <WarpPipe key={project.id} project={project} onClick={() => setSelectedProject(project)} />
-            ))}
-          </div>
+      {/* Pipes Row - Grid Responsive */}
+      <div className="max-w-7xl w-full mx-auto relative z-20 px-4 sm:px-10 lg:px-20 mb-0">
+        {/* Ambient Sleeping Characters */}
+        <div className="absolute left-2 sm:left-10 -bottom-4 z-30 pointer-events-none opacity-80">
+          <img src="/goku.png" alt="Goku" className="w-20 sm:w-32 h-auto pixelated mix-blend-multiply" />
+        </div>
+        <div className="absolute right-2 sm:right-10 -bottom-6 z-30 pointer-events-none opacity-80">
+          <img src="/narotu.png" alt="Naruto" className="w-16 sm:w-28 h-auto pixelated mix-blend-multiply" />
+        </div>
+        
+        {/* Responsive Grid: 1x4 Mobile, 2x2 Tablet, 4x Desktop */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-end gap-12 sm:gap-16 lg:gap-10">
+          {projectsData.map((project) => (
+            <WarpPipe key={project.id} project={project} onClick={() => setSelectedProject(project)} />
+          ))}
         </div>
       </div>
 
-      {/* Ground - Now Full Width */}
-      <div className="ground-strip h-8 pixel-border border-l-0 border-r-0 border-b-0 relative z-10 w-full" />
-      <div className="ground-dirt h-24 pixel-border border-l-0 border-r-0 border-b-0 border-t-0 relative z-10 w-full" />
+      {/* Ground Strip */}
+      <div className="ground-strip h-8 pixel-border border-l-0 border-r-0 border-b-0 relative z-10" />
+      <div className="ground-dirt h-24 pixel-border border-l-0 border-r-0 border-b-0 border-t-0 relative z-10" />
 
       {/* Modal */}
       <AnimatePresence>

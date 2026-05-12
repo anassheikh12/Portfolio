@@ -17,21 +17,29 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: none;
   -moz-osx-font-smoothing: unset;
+  cursor: none !important;
 }
 
-html {
-  overflow-x: hidden;
+/* Force hide cursor on all interactive elements */
+a, button, [role="button"], .cursor-pointer {
+  cursor: none !important;
 }
 
-@media (pointer: fine) {
-  body {
-    cursor: none !important;
-  }
-  
-  /* Force hide cursor on all interactive elements */
-  a, button, [role="button"], .cursor-pointer {
-    cursor: none !important;
-  }
+/* Fluid UI Windows */
+.retro-window {
+  max-height: 85vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #FFD700 rgba(0,0,0,0.2);
+}
+
+.retro-window::-webkit-scrollbar {
+  width: 8px;
+}
+
+.retro-window::-webkit-scrollbar-thumb {
+  background: #FFD700;
+  border: 2px solid #000;
 }
 
 /* Pixel scrollbar */
@@ -144,13 +152,4 @@ html {
   );
   pointer-events: none;
   z-index: 50;
-}
-
-/* Hide scrollbar but keep functionality */
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
 }
