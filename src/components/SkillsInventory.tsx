@@ -16,7 +16,7 @@ function SkillSlot({ skill, isActive, onClick, onHover }: { skill: Skill; isActi
       }`}
     >
       <div className="text-2xl sm:text-3xl mb-2">{skill.icon}</div>
-      <div className="text-white text-[7px] sm:text-[8px] pixel-text-outline leading-tight">{skill.name}</div>
+      <div className="text-white text-[7px] sm:text-[8px] pixel-text-outline leading-tight whitespace-pre-line">{skill.name}</div>
       {/* Level dots */}
       <div className="flex justify-center gap-0.5 mt-2">
         {Array.from({ length: skill.maxLevel }).map((_, i) => (
@@ -49,7 +49,7 @@ function StatsPanel({ skill }: { skill: Skill }) {
           <span className="text-2xl">{skill.icon}</span>
         </div>
         <div>
-          <h3 className="text-retro-gold text-[10px] sm:text-xs pixel-text-outline">{skill.name}</h3>
+          <h3 className="text-retro-gold text-[10px] sm:text-xs pixel-text-outline whitespace-pre-line">{skill.name}</h3>
           <span className="text-white/40 text-[7px]">{skill.category}</span>
         </div>
       </div>

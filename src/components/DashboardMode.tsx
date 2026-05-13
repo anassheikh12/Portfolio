@@ -35,7 +35,7 @@ export default function DashboardMode() {
                 <span className="text-2xl">{skill.icon}</span>
                 <div className="flex-1">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="text-white text-[10px]">{skill.name}</span>
+                    <span className="text-white text-[10px] whitespace-pre-line">{skill.name}</span>
                     <span className="text-white/40 text-[8px]">{skill.level}/{skill.maxLevel}</span>
                   </div>
                   <div className="h-2 bg-white/10">
