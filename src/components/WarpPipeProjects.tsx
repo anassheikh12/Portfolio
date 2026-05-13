@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectsData, type Project } from '../data/projectsData';
 
@@ -6,7 +6,7 @@ function WarpPipe({ project, onClick }: { project: Project; onClick: () => void 
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <div className="flex flex-col items-center relative">
+    <div className="flex flex-col items-center relative flex-shrink-0">
       <motion.button
         onClick={onClick}
         onMouseEnter={() => setIsHovered(true)}
@@ -14,10 +14,10 @@ function WarpPipe({ project, onClick }: { project: Project; onClick: () => void 
         whileHover={{ y: -8 }}
         whileTap={{ scale: 0.95 }}
         className="flex flex-col items-center group cursor-pointer relative"
-        initial={{ y: 50, opacity: 0 }}
+        initial={{ y: 5, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ type: 'spring', stiffness: 100 }}
+        viewport={{ once: true, margin: "-10px" }}
+        transition={{ duration: 0.2 }}
       >
         {/* Mario Jump Animation - 120px Arc */}
         <AnimatePresence>
@@ -25,17 +25,17 @@ function WarpPipe({ project, onClick }: { project: Project; onClick: () => void 
             <motion.img
               src="/mario-jump.png"
               alt="Mario"
-              initial={{ y: 40, opacity: 0 }}
+              initial={{ y: project.pipeHeight / 2, opacity: 0 }}
               animate={{ 
-                y: [40, -120, 40],
+                y: [project.pipeHeight / 2, -(project.pipeHeight + 60), project.pipeHeight / 2],
                 opacity: [0, 1, 1, 0],
               }}
               transition={{ 
-                duration: 0.8, 
+                duration: 1.5, 
                 times: [0, 0.4, 1], 
-                ease: "easeOut" 
+                ease: "easeInOut" 
               }}
-              className="absolute bottom-24 w-20 h-auto z-0 mix-blend-multiply"
+              className="absolute bottom-16 w-20 h-auto z-0 mix-blend-multiply"
             />
           )}
         </AnimatePresence>
@@ -49,9 +49,9 @@ function WarpPipe({ project, onClick }: { project: Project; onClick: () => void 
         />
       </motion.button>
 
-      {/* Static Label embedded in the ground dirt area */}
-      <div className="absolute top-full mt-10 z-30 w-full flex justify-center">
-        <span className="text-retro-gold text-[7px] sm:text-[9px] pixel-text-outline whitespace-nowrap uppercase tracking-tighter sm:tracking-widest font-pixel">
+      {/* Static Label - Positioned within dirt area to prevent pipe lift */}
+      <div className="absolute top-full mt-2 z-30 w-full flex justify-center pointer-events-none">
+        <span className="text-retro-gold text-[8px] sm:text-[9px] pixel-text-outline whitespace-nowrap uppercase tracking-widest font-pixel bg-black/40 px-2 py-1">
           {project.title}
         </span>
       </div>
@@ -65,7 +65,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70"
+      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70"
       onClick={onClose}
     >
       <motion.div
@@ -73,7 +73,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
         animate={{ scale: 1, y: 0 }}
         exit={{ scale: 0.8, y: 50 }}
         transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-        className="bg-retro-panel pixel-border-thick shadow-pixel-lg max-w-xl w-full max-h-[80vh] overflow-y-auto"
+        className="bg-retro-panel pixel-border-thick shadow-pixel-lg max-w-xl w-full max-h-[85vh] overflow-y-auto mt-12 sm:mt-16"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal header */}
@@ -99,10 +99,9 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
         {/* Content */}
         <div className="p-6">
-          {/* Video Gameplay Preview */}
           <div className="bg-black/20 pixel-border p-1 mb-6 relative overflow-hidden aspect-video">
             {project.videoAsset ? (
-              <div className="border-4 border-black w-full h-full">
+              <div className="border-4 border-black w-full h-full group/video cursor-pointer relative">
                 <video 
                   src={`/${project.videoAsset}`}
                   autoPlay
@@ -110,8 +109,17 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
                   muted
                   playsInline
                   preload="none"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
+                  onClick={(e) => {
+                    const video = e.currentTarget as HTMLVideoElement;
+                    if (video.requestFullscreen) {
+                      video.requestFullscreen();
+                    }
+                  }}
                 />
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/video:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
+                  <span className="text-white text-[8px] pixel-text-outline uppercase tracking-widest">⛶ CLICK FOR FULLSCREEN</span>
+                </div>
               </div>
             ) : (
               <div className="min-h-[120px] h-full flex items-center justify-center">
@@ -125,7 +133,6 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
           <p className="text-white/80 text-[10px] md:text-sm leading-relaxed font-mono whitespace-pre-line mb-8">{project.description}</p>
 
-          {/* Tech stack */}
           <div className="mb-6">
             <span className="text-white/40 text-[7px] block mb-2">TECH LOADOUT:</span>
             <div className="flex flex-wrap gap-2">
@@ -135,7 +142,6 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
             </div>
           </div>
 
-          {/* Action buttons */}
           <div className="flex gap-3">
             <motion.a
               href={project.repoUrl}
@@ -168,35 +174,92 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
 
 export default function WarpPipeProjects() {
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+
+  const nextProject = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % projectsData.length);
+  }, []);
+
+  const prevProject = useCallback(() => {
+    setCurrentIndex((prev) => (prev - 1 + projectsData.length) % projectsData.length);
+  }, []);
+
+  useEffect(() => {
+    if (isPaused) return;
+    const timer = setInterval(nextProject, 3000);
+    return () => clearInterval(timer);
+  }, [isPaused, nextProject]);
+
+  const handleManualNav = (dir: 'next' | 'prev') => {
+    setIsPaused(true);
+    if (dir === 'next') nextProject();
+    else prevProject();
+    // Resume autoscroll after 5s of inactivity
+    setTimeout(() => setIsPaused(false), 5000);
+  };
 
   return (
     <section id="projects" className="min-h-screen flex flex-col justify-end relative scroll-mt-24 overflow-hidden">
-      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-20 px-4">
+      <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-24 px-4">
         <div className="inline-flex items-center gap-3 bg-retro-dirt pixel-border shadow-pixel px-6 py-3">
           <span className="text-retro-gold text-lg">🏗️</span>
           <h2 className="text-white text-xs sm:text-sm pixel-text-outline uppercase">PROJECT SELECT</h2>
         </div>
       </motion.div>
 
-      {/* Pipes Row - Grid Responsive */}
-      <div className="max-w-7xl w-full mx-auto relative z-20 px-4 sm:px-10 lg:px-20 mb-0">
-        {/* Ambient Sleeping Characters */}
-        <div className="absolute left-2 sm:left-10 -bottom-4 z-30 pointer-events-none opacity-80">
+      {/* Pipes Container */}
+      <div className="max-w-7xl w-full mx-auto relative z-20 px-0 lg:px-20 mb-0">
+        {/* Ambient Sleeping Characters - Desktop Only */}
+        <div className="hidden lg:block absolute left-2 sm:left-10 -bottom-4 z-30 pointer-events-none opacity-80">
           <img src="/goku.png" alt="Goku" className="w-20 sm:w-32 h-auto pixelated mix-blend-multiply" />
         </div>
-        <div className="absolute right-2 sm:right-10 -bottom-6 z-30 pointer-events-none opacity-80">
+        <div className="hidden lg:block absolute right-2 sm:right-10 -bottom-6 z-30 pointer-events-none opacity-80">
           <img src="/narotu.png" alt="Naruto" className="w-16 sm:w-28 h-auto pixelated mix-blend-multiply" />
         </div>
         
-        {/* Responsive Grid: 1x4 Mobile, 2x2 Tablet, 4x Desktop */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 items-end gap-12 sm:gap-16 lg:gap-10">
+        {/* DESKTOP GRID (lg and up) */}
+        <div className="hidden lg:grid lg:grid-cols-4 items-end gap-10">
           {projectsData.map((project) => (
             <WarpPipe key={project.id} project={project} onClick={() => setSelectedProject(project)} />
           ))}
         </div>
+
+        {/* MOBILE & TABLET STATE-DRIVEN SLIDER (under lg) */}
+        <div className="relative lg:hidden h-[300px] flex items-end justify-center mb-0">
+          {/* Slider Arrows - Positioned for thumb targets */}
+          <button 
+            onClick={() => handleManualNav('prev')}
+            className="absolute left-8 bottom-4 z-40 bg-retro-dirt pixel-border w-12 h-12 flex items-center justify-center text-white active:scale-90 transition-transform shadow-pixel"
+          >
+            ◀
+          </button>
+          <button 
+            onClick={() => handleManualNav('next')}
+            className="absolute right-8 bottom-4 z-40 bg-retro-dirt pixel-border w-12 h-12 flex items-center justify-center text-white active:scale-90 transition-transform shadow-pixel"
+          >
+            ▶
+          </button>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ x: 100, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              exit={{ x: -100, opacity: 0 }}
+              transition={{ duration: 0.2, ease: 'easeInOut' }}
+              className="absolute bottom-0 w-full flex justify-center"
+            >
+              <WarpPipe 
+                project={projectsData[currentIndex]} 
+                onClick={() => setSelectedProject(projectsData[currentIndex])} 
+              />
+            </motion.div>
+          </AnimatePresence>
+        </div>
       </div>
 
-      {/* Ground Strip */}
+      {/* Ground Strip - Pipes sit flush on this */}
       <div className="ground-strip h-8 pixel-border border-l-0 border-r-0 border-b-0 relative z-10" />
       <div className="ground-dirt h-24 pixel-border border-l-0 border-r-0 border-b-0 border-t-0 relative z-10" />
 

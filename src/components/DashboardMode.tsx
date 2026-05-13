@@ -1,7 +1,10 @@
-import { motion } from 'framer-motion';
-import { bioData, skillsData, projectsData } from '../data/projectsData';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { bioData, skillsData, projectsData, type Project } from '../data/projectsData';
 
 export default function DashboardMode() {
+  const [selectedVideo, setSelectedVideo] = useState<Project | null>(null);
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-16">
       <div className="bg-[#1a1a1a] p-8 md:p-12 relative z-20 border-4 border-white/5 shadow-2xl">
@@ -49,19 +52,46 @@ export default function DashboardMode() {
           <h2 className="text-retro-grass text-sm md:text-base mb-6 pb-2 border-b-2 border-white/10">PROJECTS</h2>
           <div className="space-y-6">
             {projectsData.map((project) => (
-              <a key={project.id} href={project.repoUrl} target="_blank" rel="noopener noreferrer" className="block bg-white/5 border-2 border-white/10 p-6 hover:border-retro-grass/50 transition-all hover:translate-x-2">
+              <div key={project.id} className="bg-white/5 border-2 border-white/10 p-6 hover:border-retro-grass/30 transition-all group">
                 <div className="flex items-center gap-3 mb-3">
                   <div className="w-4 h-4" style={{ backgroundColor: project.color }} />
-                  <h3 className="text-white text-xs">{project.title}</h3>
+                  <h3 className="text-white text-xs font-pixel">{project.title}</h3>
                   <span className="text-white/30 text-[8px] uppercase tracking-tighter">— {project.subtitle}</span>
                 </div>
-                <p className="text-white/50 text-[10px] md:text-xs leading-relaxed mb-4 font-mono">{project.description}</p>
-                <div className="flex flex-wrap gap-2">
+                <p className="text-white/50 text-[10px] md:text-xs leading-relaxed mb-6 font-mono">{project.description}</p>
+                <div className="flex flex-wrap gap-2 mb-8">
                   {project.tech.map((t) => (
                     <span key={t} className="text-retro-grass/90 text-[8px] bg-retro-grass/10 px-2 py-1 uppercase">{t}</span>
                   ))}
                 </div>
-              </a>
+                
+                <div className="flex flex-wrap gap-3">
+                  <button 
+                    onClick={() => setSelectedVideo(project)}
+                    className="flex-1 bg-white text-black py-3 text-center text-[8px] font-pixel hover:bg-retro-gold transition-colors"
+                  >
+                    WATCH DEMO
+                  </button>
+                  {project.liveUrl && (
+                    <a 
+                      href={project.liveUrl} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="flex-1 bg-retro-grass text-retro-dark py-3 text-center text-[8px] font-pixel hover:bg-white transition-colors"
+                    >
+                      LIVE DEMO
+                    </a>
+                  )}
+                  <a 
+                    href={project.repoUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    className="flex-1 bg-white/10 text-white py-3 text-center text-[8px] font-pixel hover:bg-white/20 transition-colors border border-white/10"
+                  >
+                    VIEW CODE
+                  </a>
+                </div>
+              </div>
             ))}
           </div>
         </motion.section>
@@ -108,10 +138,9 @@ export default function DashboardMode() {
               </div>
               <div>
                 <label className="block text-white/40 text-[8px] mb-2 uppercase tracking-widest">Your Message</label>
-                <textarea 
-                  rows={4}
+                <input 
                   placeholder="Type your message here..."
-                  className="w-full bg-white/5 border-2 border-white/10 p-3 text-white text-xs font-mono focus:border-retro-grass outline-none transition-colors resize-none"
+                  className="w-full bg-white/5 border-2 border-white/10 p-3 text-white text-xs font-mono focus:border-retro-grass outline-none transition-colors"
                 />
               </div>
               <button className="w-full bg-retro-grass text-retro-dark py-3 text-[10px] font-pixel hover:bg-white transition-colors uppercase">
@@ -125,6 +154,47 @@ export default function DashboardMode() {
           <p className="text-white/20 text-[8px]">© 2026 {bioData.name}. Built with React + TypeScript.</p>
         </footer>
       </div>
+
+      {/* Video Modal */}
+      <AnimatePresence>
+        {selectedVideo && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-sm"
+            onClick={() => setSelectedVideo(null)}
+          >
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="max-w-4xl w-full aspect-video bg-black relative border-4 border-white/10 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <button 
+                onClick={() => setSelectedVideo(null)}
+                className="absolute top-4 right-4 z-50 w-10 h-10 bg-black/60 border border-white/20 text-white hover:bg-white hover:text-black transition-all flex items-center justify-center rounded-full"
+              >
+                <span className="text-xl">✕</span>
+              </button>
+              
+              <video 
+                src={`/${selectedVideo.videoAsset}`}
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full h-full object-contain"
+              />
+              
+              <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                <h3 className="text-white text-xs font-pixel">{selectedVideo.title} — Gameplay Demo</h3>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

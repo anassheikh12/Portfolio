@@ -16,13 +16,33 @@ body {
   background-color: #5C94FC;
   overflow-x: hidden;
   -webkit-font-smoothing: none;
-  -moz-osx-font-smoothing: unset;
-  cursor: none !important;
+  -moz-osx-font-smoothing: none;
+  text-rendering: optimizeSpeed;
 }
 
-/* Force hide cursor on all interactive elements */
-a, button, [role="button"], .cursor-pointer {
-  cursor: none !important;
+/* Custom Cursor Core - Enabled only for fine pointers (Desktop) */
+@media (pointer: fine) {
+  * {
+    cursor: none !important;
+  }
+  
+  body {
+    cursor: none !important;
+  }
+  
+  /* Force hide cursor on all interactive elements */
+  a, button, [role="button"], .cursor-pointer {
+    cursor: none !important;
+  }
+}
+
+/* Restore native cursor for Fullscreen API */
+:fullscreen, ::-webkit-full-screen, :full-screen {
+  cursor: auto !important;
+}
+
+.fullscreen-mode * {
+  cursor: auto !important;
 }
 
 /* Fluid UI Windows */
@@ -71,14 +91,14 @@ a, button, [role="button"], .cursor-pointer {
   }
   .pixel-text-outline {
     text-shadow:
-      -2px -2px 0 #000,
-       2px -2px 0 #000,
-      -2px  2px 0 #000,
-       2px  2px 0 #000,
-       0   -2px 0 #000,
-       0    2px 0 #000,
-      -2px  0   0 #000,
-       2px  0   0 #000;
+      1px 1px 0 #000,
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      0px 1px 0 #000,
+      0px -1px 0 #000,
+      1px 0px 0 #000,
+      -1px 0px 0 #000;
   }
 }
 

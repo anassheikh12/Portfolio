@@ -3,6 +3,7 @@ import { motion, useSpring, useMotionValue } from 'framer-motion';
 
 export default function CustomCursor() {
   const [isHovered, setIsHovered] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
@@ -11,7 +12,13 @@ export default function CustomCursor() {
   const y = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    // Check for touch device support
+    const touchCheck = window.matchMedia("(pointer: coarse)");
+    setIsTouchDevice(touchCheck.matches);
+
     const handleMouseMove = (e: MouseEvent) => {
+      if (touchCheck.matches) return;
+      
       cursorX.set(e.clientX);
       cursorY.set(e.clientY);
       
@@ -37,9 +44,11 @@ export default function CustomCursor() {
     };
   }, [cursorX, cursorY]);
 
+  if (isTouchDevice) return null;
+
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] w-10 h-10 -ml-5 -mt-5"
+      className="fixed top-0 left-0 pointer-events-none z-[9999] w-10 h-10 -ml-5 -mt-5 hidden lg:block"
       style={{ x, y }}
     >
       <img

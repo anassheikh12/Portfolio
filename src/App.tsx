@@ -56,6 +56,19 @@ function AppContent() {
   }, [viewMode, setActiveSection]);
 
   // Handle landing state (no scroll allowed)
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      if (document.fullscreenElement) {
+        document.body.classList.add('fullscreen-mode');
+      } else {
+        document.body.classList.remove('fullscreen-mode');
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
   if (viewMode === null) {
     return (
       <div className="h-screen w-screen overflow-hidden bg-retro-sky relative scanlines cursor-none">
@@ -81,12 +94,12 @@ function AppContent() {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-        className="fixed top-0 left-0 right-0 z-50"
+        className="fixed top-0 left-0 right-0"
       >
         <HudNavbar />
       </motion.div>
 
-      <div className="pt-20 relative z-10">
+      <div className="pt-20 relative">
         <AnimatePresence mode="wait">
           <motion.div
             key={viewMode || 'landing'}
