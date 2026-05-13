@@ -69,7 +69,10 @@ function AppContent() {
   }
 
   return (
-    <div className={`relative min-h-screen scanlines cursor-none ${viewMode === 'arcade' ? 'bg-retro-sky' : 'bg-retro-dark'}`}>
+    <div 
+      key={viewMode}
+      className={`relative min-h-screen scanlines cursor-none transition-colors duration-500 ${viewMode === 'arcade' ? 'bg-retro-sky' : 'bg-retro-dark'}`}
+    >
       <CustomCursor />
       <CloudBackground />
       

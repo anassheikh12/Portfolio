@@ -109,6 +109,7 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
                   loop
                   muted
                   playsInline
+                  preload="none"
                   className="w-full h-full object-cover"
                 />
               </div>
