@@ -2,15 +2,29 @@ import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { projectsData, type Project } from '../data/projectsData';
 
-function WarpPipe({ project, onClick }: { project: Project; onClick: () => void }) {
+function WarpPipe({ project, onClick, autoJump = false }: { project: Project; onClick: () => void; autoJump?: boolean }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [showMario, setShowMario] = useState(false);
+
+  // Auto-trigger jump on mobile when this pipe becomes the active slide
+  useEffect(() => {
+    if (!autoJump) return;
+    // Small delay so the slide-in animation finishes first
+    const delay = setTimeout(() => {
+      setShowMario(true);
+      // Hide mario after the full jump completes
+      const hide = setTimeout(() => setShowMario(false), 1500);
+      return () => clearTimeout(hide);
+    }, 280);
+    return () => clearTimeout(delay);
+  }, [autoJump]);
 
   return (
     <div className="flex flex-col items-center relative flex-shrink-0">
       <motion.button
         onClick={onClick}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseEnter={() => { setIsHovered(true); setShowMario(true); }}
+        onMouseLeave={() => { setIsHovered(false); setShowMario(false); }}
         whileHover={{ y: -8 }}
         whileTap={{ scale: 0.95 }}
         className="flex flex-col items-center group cursor-pointer relative"
@@ -19,12 +33,13 @@ function WarpPipe({ project, onClick }: { project: Project; onClick: () => void 
         viewport={{ once: true, margin: "-10px" }}
         transition={{ duration: 0.2 }}
       >
-        {/* Mario Jump Animation - 120px Arc */}
+        {/* Mario Jump Animation */}
         <AnimatePresence>
-          {isHovered && (
+          {(showMario || (isHovered && !autoJump)) && (
             <motion.img
               src="/mario-jump.png"
               alt="Mario"
+              key="mario"
               initial={{ y: project.pipeHeight / 2, opacity: 0 }}
               animate={{ 
                 y: [project.pipeHeight / 2, -(project.pipeHeight + 60), project.pipeHeight / 2],
@@ -35,16 +50,16 @@ function WarpPipe({ project, onClick }: { project: Project; onClick: () => void 
                 times: [0, 0.4, 1], 
                 ease: "easeInOut" 
               }}
-              className="absolute bottom-16 w-20 h-auto z-0 mix-blend-multiply"
+              className="absolute bottom-16 w-20 h-auto z-0"
             />
           )}
         </AnimatePresence>
 
         {/* Pipe lip */}
-        <div className="w-24 sm:w-28 h-8 pipe-lip pixel-border-thick shadow-pixel relative z-10 group-hover:brightness-110 transition-all" />
+        <div className="w-24 sm:w-28 h-8 pipe-lip pixel-border-thick shadow-pixel relative z-20 group-hover:brightness-110 transition-all" />
         {/* Pipe body */}
         <div
-          className="w-20 sm:w-24 pipe-body pixel-border-thick border-t-0 group-hover:brightness-110 transition-all"
+          className="w-20 sm:w-24 pipe-body pixel-border-thick border-t-0 relative z-10 group-hover:brightness-110 transition-all"
           style={{ height: `${project.pipeHeight}px` }}
         />
       </motion.button>
@@ -65,15 +80,15 @@ function ProjectModal({ project, onClose }: { project: Project; onClose: () => v
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70"
+      className="fixed top-[92px] sm:top-[108px] inset-x-0 bottom-0 z-[9999] flex items-start justify-center pt-4 px-4 pb-6 bg-black/70 overflow-y-auto"
       onClick={onClose}
     >
       <motion.div
-        initial={{ scale: 0.8, y: 50 }}
+        initial={{ scale: 0.8, y: 30 }}
         animate={{ scale: 1, y: 0 }}
-        exit={{ scale: 0.8, y: 50 }}
+        exit={{ scale: 0.8, y: 30 }}
         transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-        className="bg-retro-panel pixel-border-thick shadow-pixel-lg max-w-xl w-full max-h-[85vh] overflow-y-auto mt-12 sm:mt-16"
+        className="bg-retro-panel pixel-border-thick shadow-pixel-lg max-w-xl w-full"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal header */}
@@ -252,7 +267,8 @@ export default function WarpPipeProjects() {
             >
               <WarpPipe 
                 project={projectsData[currentIndex]} 
-                onClick={() => setSelectedProject(projectsData[currentIndex])} 
+                onClick={() => setSelectedProject(projectsData[currentIndex])}
+                autoJump={true}
               />
             </motion.div>
           </AnimatePresence>

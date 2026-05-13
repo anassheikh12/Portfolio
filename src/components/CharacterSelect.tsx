@@ -1,41 +1,6 @@
 import { motion } from 'framer-motion';
 import { bioData } from '../data/projectsData';
 
-function PixelAvatar() {
-  return (
-    <svg viewBox="0 0 64 64" className="w-full h-full" style={{ imageRendering: 'pixelated' }}>
-      {/* Hair */}
-      <rect x="16" y="8" width="32" height="8" fill="#2d1b00" />
-      <rect x="12" y="12" width="8" height="8" fill="#2d1b00" />
-      <rect x="44" y="12" width="8" height="8" fill="#2d1b00" />
-      {/* Face */}
-      <rect x="16" y="16" width="32" height="20" fill="#F5C68E" />
-      <rect x="12" y="20" width="4" height="12" fill="#F5C68E" />
-      <rect x="48" y="20" width="4" height="12" fill="#F5C68E" />
-      {/* Eyes */}
-      <rect x="22" y="22" width="6" height="6" fill="#1a1a2e" />
-      <rect x="36" y="22" width="6" height="6" fill="#1a1a2e" />
-      <rect x="24" y="24" width="2" height="2" fill="white" />
-      <rect x="38" y="24" width="2" height="2" fill="white" />
-      {/* Mouth / Smile */}
-      <rect x="26" y="32" width="12" height="2" fill="#c0392b" />
-      <rect x="24" y="30" width="2" height="2" fill="#c0392b" />
-      <rect x="38" y="30" width="2" height="2" fill="#c0392b" />
-      {/* Body / Shirt */}
-      <rect x="16" y="38" width="32" height="16" fill="#5C94FC" />
-      <rect x="12" y="42" width="4" height="12" fill="#5C94FC" />
-      <rect x="48" y="42" width="4" height="12" fill="#5C94FC" />
-      {/* Collar */}
-      <rect x="28" y="38" width="8" height="4" fill="#FFD700" />
-      {/* Belt */}
-      <rect x="16" y="52" width="32" height="4" fill="#865126" />
-      <rect x="28" y="52" width="8" height="4" fill="#FFD700" />
-      {/* Legs */}
-      <rect x="16" y="56" width="12" height="8" fill="#1a1a2e" />
-      <rect x="36" y="56" width="12" height="8" fill="#1a1a2e" />
-    </svg>
-  );
-}
 
 function StatBar({ label, value, max, color }: { label: string; value: number; max: number; color: string }) {
   const pct = (value / max) * 100;
@@ -72,7 +37,7 @@ export default function CharacterSelect() {
         >
           <div className="inline-flex items-center gap-4 bg-retro-grass pixel-border shadow-pixel-green px-8 py-4">
             <span className="text-white text-2xl">👤</span>
-            <h2 className="text-white text-sm md:text-base pixel-text-outline uppercase">CHARACTER SELECT</h2>
+            <h2 className="text-white text-sm md:text-base pixel-text-outline uppercase">CHARACTER</h2>
           </div>
         </motion.div>
 
@@ -96,7 +61,11 @@ export default function CharacterSelect() {
                   transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
                   className="w-32 h-32 mx-auto"
                 >
-                  <PixelAvatar />
+                  <img 
+                    src="/character.png" 
+                    alt="Character" 
+                    className="w-full h-full object-contain pixelated"
+                  />
                 </motion.div>
 
                 {/* Player indicator */}
